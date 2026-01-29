@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="StudyFlow - Your smart study companion for tracking concepts, managing subjects, and boosting productivity with an intelligent revision tracker.">
+    <meta name="keywords" content="study tracker, revision app, concept tracker, study companion, productivity, education">
+    <meta name="author" content="StudyFlow">
+    <meta name="theme-color" content="#0f3443">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="StudyFlow - Smart Study Companion">
+    <meta property="og:description" content="Track your concepts, manage subjects, and boost your study productivity with our intelligent revision tracker.">
+    <meta property="og:site_name" content="StudyFlow">
+    
+    <!-- PWA Support -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="StudyFlow">
+    
+    <title>StudyFlow - Smart Study Companion</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle subjects menu">
+                    <span class="hamburger-icon">☰</span>
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <span class="logo-book">📖</span>
+                        <span class="logo-spark">✨</span>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="app-title">StudyFlow</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" id="timetableBtn" aria-label="View my timetable" data-test="timetable-emoji-btn">
+                    📅<span class="btn-text"> Timetable</span>
+                </button>
+                <button class="header-btn streak-btn" id="streakBtn" aria-label="View study streak" data-test="streak-emoji-btn">
+                    🔥<span class="btn-text"> Streak: <span id="streakCount">0</span> days</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar Overlay (for mobile) -->
+            <div class="sidebar-overlay" id="sidebarOverlay"></div>
+            
+            <!-- Sidebar: Subject Management -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">✕</button>
+                    <h2>Subjects</h2>
+                    <button class="btn btn-primary btn-sm" id="addSubjectBtn" aria-label="Add new subject">
+                        + Add
+                    </button>
+                </div>
+
+                <!-- Add Subject Form (hidden by default) -->
+                <div class="add-subject-form hidden" id="addSubjectForm">
+                    <input type="text" id="newSubjectInput" placeholder="Subject name..." maxlength="50">
+                    <div class="color-picker-section">
+                        <label>Pick a color:</label>
+                        <div class="color-options">
+                            <input type="radio" name="subjectColor" value="#6366f1" id="color1" checked>
+                            <label for="color1" class="color-option" style="background: #6366f1;"></label>
+                            
+                            <input type="radio" name="subjectColor" value="#8b5cf6" id="color2">
+                            <label for="color2" class="color-option" style="background: #8b5cf6;"></label>
+                            
+                            <input type="radio" name="subjectColor" value="#ec4899" id="color3">
+                            <label for="color3" class="color-option" style="background: #ec4899;"></label>
+                            
+                            <input type="radio" name="subjectColor" value="#f59e0b" id="color4">
+                            <label for="color4" class="color-option" style="background: #f59e0b;"></label>
+                            
+                            <input type="radio" name="subjectColor" value="#10b981" id="color5">
+                            <label for="color5" class="color-option" style="background: #10b981;"></label>
+                            
+                            <input type="radio" name="subjectColor" value="#06b6d4" id="color6">
+                            <label for="color6" class="color-option" style="background: #06b6d4;"></label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-success btn-sm" id="saveSubjectBtn">Save</button>
+                        <button class="btn btn-secondary btn-sm" id="cancelSubjectBtn">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Subject List -->
+                <ul class="subject-list" id="subjectList">
+                    <!-- Subjects will be rendered here -->
+                </ul>
+
+                <!-- Empty State for Subjects -->
+                <div class="empty-state" id="noSubjectsMessage">
+                    <p>📝 No subjects yet!</p>
+                    <p class="hint">Click "Add" to create your first subject.</p>
+                </div>
+
+                <!-- Reset Data Button -->
+                <div class="sidebar-footer">
+                    <button class="btn btn-danger btn-sm" id="resetDataBtn">
+                        🗑️ Reset All Data
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="main-content">
+                <!-- Welcome Message (shown when no subject selected) -->
+                <div class="welcome-message" id="welcomeMessage">
+                    <h2>👋 Welcome to StudyFlow!</h2>
+                    <p>Your smart companion to track learning progress, manage study time, and stay organized.</p>
+                    <div class="getting-started">
+                        <h3>Getting Started:</h3>
+                        <ol>
+                            <li>Add a subject (e.g., "Physics", "Maths", "Chemistry")</li>
+                            <li>Add concepts/topics under each subject</li>
+                            <li>Mark when you last revised each concept</li>
+                        </ol>
+                    </div>
+                    <div class="quick-tips">
+                        <h3>✅ Quick Tips for Better Results</h3>
+                        <ul>
+                            <li>Sort by "Last Revised" to quickly spot older concepts.</li>
+                            <li>Keep "Need Revision" low by revisiting those topics first.</li>
+                            <li>Stay active daily to maintain your study streak!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Subject Detail View (hidden by default) -->
+                <div class="subject-detail hidden" id="subjectDetail">
+                    <!-- Subject Header -->
+                    <div class="subject-header">
+                        <div class="subject-title-area">
+                            <button class="back-btn" id="backToHomeBtn" title="Back to Home">
+                                ← Back
+                            </button>
+                            <h2 id="selectedSubjectName">Subject Name</h2>
+                            <div class="subject-actions">
+                                <button class="btn btn-secondary btn-sm" id="renameSubjectBtn" title="Rename">
+                                    ✏️ Rename
+                                </button>
+                                <button class="btn btn-danger btn-sm" id="deleteSubjectBtn" title="Delete">
+                                    🗑️ Delete
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Rename Form (hidden by default) -->
+                        <div class="rename-form hidden" id="renameSubjectForm">
+                            <input type="text" id="renameSubjectInput" placeholder="New name..." maxlength="50">
+                            <button class="btn btn-success btn-sm" id="saveRenameBtn">Save</button>
+                            <button class="btn btn-secondary btn-sm" id="cancelRenameBtn">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Overview -->
+                    <div class="progress-overview" id="progressOverview">
+                        <h3>📊 Progress Overview</h3>
+                        <div class="progress-stats">
+                            <div class="stat-card">
+                                <span class="stat-number" id="totalConcepts">0</span>
+                                <span class="stat-label">Total Concepts</span>
+                            </div>
+                            <div class="stat-card not-started">
+                                <span class="stat-number" id="notStartedCount">0</span>
+                                <span class="stat-label">Not Started</span>
+                            </div>
+                            <div class="stat-card learning">
+                                <span class="stat-number" id="learningCount">0</span>
+                                <span class="stat-label">Learning</span>
+                            </div>
+                            <div class="stat-card need-revision">
+                                <span class="stat-number" id="needRevisionCount">0</span>
+                                <span class="stat-label">Need Revision</span>
+                            </div>
+                            <div class="stat-card confident">
+                                <span class="stat-number" id="confidentCount">0</span>
+                                <span class="stat-label">Confident</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                        <p class="progress-summary" id="progressSummary">Start adding concepts to track your progress!</p>
+                    </div>
+
+                    <!-- Filters and Sorting -->
+                    <div class="filters-section">
+                        <div class="filter-group">
+                            <label for="statusFilter">Filter by Status:</label>
+                            <select id="statusFilter">
+                                <option value="all">All</option>
+                                <option value="not-started">Not Started</option>
+                                <option value="learning">Learning</option>
+                                <option value="need-revision">Need Revision</option>
+                                <option value="confident">Confident</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="sortBy">Sort by:</label>
+                            <select id="sortBy">
+                                <option value="name-asc">Name (A–Z)</option>
+                                <option value="name-desc">Name (Z–A)</option>
+                                <option value="status">Status</option>
+                                <option value="date-desc">Last Revised (Newest)</option>
+                                <option value="date-asc">Last Revised (Oldest)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Add Concept Form -->
+                    <div class="add-concept-section">
+                        <h3>➕ Add New Concept</h3>
+                        <div class="add-concept-form">
+                            <input type="text" id="newConceptName" placeholder="Concept name..." maxlength="100">
+                            <select id="newConceptStatus">
+                                <option value="not-started">Not Started</option>
+                                <option value="learning">Learning</option>
+                                <option value="need-revision">Need Revision</option>
+                                <option value="confident">Confident</option>
+                            </select>
+                            <button class="btn btn-primary" id="addConceptBtn">Add Concept</button>
+                        </div>
+                    </div>
+
+                    <!-- Concepts List -->
+                    <div class="concepts-section">
+                        <div class="concepts-header">
+                            <h3>📋 Concepts</h3>
+                            <div class="quick-filters" id="quickFilters">
+                                <button class="quick-filter-btn active" data-filter="all">All</button>
+                                <button class="quick-filter-btn" data-filter="not-started">Not Started</button>
+                                <button class="quick-filter-btn" data-filter="learning">Learning</button>
+                                <button class="quick-filter-btn" data-filter="need-revision">Need Revision</button>
+                                <button class="quick-filter-btn" data-filter="confident">Confident</button>
+                            </div>
+                        </div>
+                        <div class="concepts-list" id="conceptsList">
+                            <!-- Concepts will be rendered here -->
+                        </div>
+                        <div class="empty-state hidden" id="noConceptsMessage">
+                            <p>📭 No concepts in this subject yet!</p>
+                            <p class="hint">Add your first concept above to start tracking.</p>
+                        </div>
+                        <div class="empty-state hidden" id="noFilterResults">
+                            <p>🔍 No concepts match your filter.</p>
+                            <p class="hint">Try changing the filter or add more concepts.</p>
+                        </div>
+                    </div>
+
+                    <!-- Completed Concepts Section -->
+                    <div class="completed-section" id="completedSection">
+                        <div class="completed-header" id="completedHeader">
+                            <h3>✅ Completed Concepts</h3>
+                            <span class="completed-count" id="completedCount">0</span>
+                            <button class="btn btn-secondary btn-sm toggle-completed-btn" id="toggleCompletedBtn">
+                                <span class="toggle-icon">▼</span>
+                            </button>
+                        </div>
+                        <div class="completed-list" id="completedList">
+                            <!-- Completed concepts will be rendered here -->
+                        </div>
+                        <div class="empty-state hidden" id="noCompletedMessage">
+                            <p>📭 No completed concepts yet!</p>
+                            <p class="hint">Click the ✓ button on a concept to mark it complete.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast hidden" id="toast">
+            <span id="toastMessage"></span>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div class="modal-overlay hidden" id="confirmModal">
+            <div class="modal">
+                <h3 id="modalTitle">Confirm Action</h3>
+                <p id="modalMessage">Are you sure?</p>
+                <div class="modal-actions">
+                    <button class="btn btn-danger" id="modalConfirmBtn">Confirm</button>
+                    <button class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Gallery Modal -->
+        <div class="modal-overlay hidden" id="imageModal">
+            <div class="modal image-modal">
+                <div class="modal-header">
+                    <h3 id="imageModalTitle">📷 Attached Notes</h3>
+                    <button class="btn btn-secondary btn-sm" id="closeImageModalBtn">✕</button>
+                </div>
+                <div class="image-gallery" id="imageGallery">
+                    <!-- Images will be rendered here -->
+                </div>
+                <div class="image-upload-area">
+                    <input type="file" id="imageUploadInput" accept="image/*" multiple hidden>
+                    <button class="btn btn-primary" id="addImageBtn">📷 Add Photo</button>
+                    <p class="upload-hint">Upload photos of book pages, notes, or diagrams</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Viewer Modal -->
+        <div class="modal-overlay hidden" id="imageViewerModal">
+            <div class="image-viewer">
+                <button class="btn btn-secondary btn-sm close-viewer-btn" id="closeImageViewerBtn">✕</button>
+                <img id="viewerImage" src="" alt="Full size image">
+            </div>
+        </div>
+
+        <!-- Timetable Modal -->
+        <div class="modal-overlay hidden" id="timetableModal">
+            <div class="modal timetable-modal">
+                <div class="modal-header">
+                    <h3>📅 My Study Timetable</h3>
+                    <button class="btn btn-secondary btn-sm" id="closeTimetableBtn">✕</button>
+                </div>
+                <div class="timetable-content">
+                    <div class="timetable-add">
+                        <input type="text" id="timetableDay" placeholder="Day (e.g., Monday)" maxlength="20">
+                        <input type="time" id="timetableTime">
+                        <input type="text" id="timetableTask" placeholder="Subject / Task" maxlength="50">
+                        <input type="number" id="timetableDuration" placeholder="Mins" min="5" max="480">
+                        <button class="btn btn-primary btn-sm" id="addTimetableBtn">+ Add</button>
+                    </div>
+                    <div class="timetable-list" id="timetableList">
+                        <!-- Timetable entries will be rendered here -->
+                    </div>
+                    <div class="empty-state hidden" id="noTimetableMessage">
+                        <p>📭 No schedule yet!</p>
+                        <p class="hint">Add your study plan above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        // Register service worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    // Unregister any existing service workers first
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    for (const registration of registrations) {
+                        await registration.unregister();
+                    }
+                    
+                    // Register new service worker
+                    const registration = await navigator.serviceWorker.register('./service-worker.js');
+                } catch (error) {
+                    // Service worker registration failed
+                }
+            });
+        }
+        
+        // Check for updates
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                window.location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
