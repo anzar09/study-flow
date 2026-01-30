@@ -241,52 +241,9 @@ body::after {
     flex-wrap: wrap;
 }
 
-.app-header::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-    animation: shimmer 10s linear infinite reverse;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.app-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, 
-        #ff6b6b,
-        #feca57,
-        #48dbfb,
-        #ff9ff3,
-        #54a0ff,
-        #5f27cd,
-        #ff6b6b
-    );
-    background-size: 300% 100%;
-    animation: rainbowFlow 3s linear infinite alternate;
-    box-shadow: 
-        0 0 15px rgba(255, 107, 107, 0.5),
-        0 0 30px rgba(84, 160, 255, 0.3),
-        0 0 45px rgba(95, 39, 205, 0.2);
-    z-index: 1;
-}
-
 @keyframes shimmer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-@keyframes rainbowFlow {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
 }
 
 /* Header Layout */
@@ -3561,6 +3518,48 @@ body::after {
     
     .warning-icon {
         font-size: 20px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+    .app-header {
+        padding: 2px 2px;
+        min-height: 20px;
+    }
+    
+    .logo-container {
+        gap: 1px;
+        padding: 0;
+    }
+    
+    .logo-icon {
+        font-size: 0.9rem;
+    }
+    
+    .logo-text .app-title {
+        font-size: 0.6rem;
+    }
+    
+    .header-btn {
+        padding: 2px 4px !important;
+        font-size: 0.5rem;
+    }
+    
+    .main-content {
+        padding: var(--spacing-xs);
+    }
+    
+    .concept-card {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .info-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .welcome-message {
+        padding: var(--spacing-sm);
     }
 }
 
