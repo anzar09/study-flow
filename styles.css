@@ -319,49 +319,21 @@ body::after {
 
 /* Logo Container */
 
-/* Logo Container Animation: bounce and rotate for more distinction */
+/* Logo Container */
+
 .logo-container {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    animation: logoBounceRotate 2.5s cubic-bezier(0.68,-0.55,0.27,1.55) infinite;
 }
 
-@keyframes logoBounceRotate {
-    0%, 100% {
-        transform: translateY(0) rotate(-2deg);
-    }
-    20% {
-        transform: translateY(-6px) rotate(2deg);
-    }
-    40% {
-        transform: translateY(0) rotate(-2deg);
-    }
-    60% {
-        transform: translateY(-3px) rotate(2deg);
-    }
-    80% {
-        transform: translateY(0) rotate(-2deg);
-    }
-}
 
 .logo-icon {
     position: relative;
     font-size: 1.8rem;
     filter: drop-shadow(0 2px 8px rgba(52, 232, 158, 0.6));
-    animation: iconPulseGlow 2s cubic-bezier(0.68,-0.55,0.27,1.55) infinite;
 }
 
-@keyframes iconPulseGlow {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 2px 8px rgba(52, 232, 158, 0.6));
-    }
-    50% {
-        transform: scale(1.13) rotate(-3deg);
-        filter: drop-shadow(0 6px 18px rgba(52, 232, 158, 0.95));
-    }
-}
 
 .logo-book {
     display: inline-block;
@@ -372,20 +344,10 @@ body::after {
     top: -8px;
     right: -14px;
     font-size: 1.1rem;
-    animation: sparkleTwist 1.2s cubic-bezier(0.68,-0.55,0.27,1.55) infinite;
     filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.95));
 }
 
-@keyframes sparkleTwist {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-    }
-    50% {
-        opacity: 0.7;
-        transform: scale(1.25) rotate(18deg);
-    }
-}
+
 /* ==================== Extra Responsive Breakpoints ==================== */
 @media (max-width: 600px) {
     .app-header {
@@ -2958,6 +2920,43 @@ body::after {
     .modal {
         padding: var(--spacing-lg);
     }
+    
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+    
+    .concept-card {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .concept-actions {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .concept-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    .welcome-message {
+        padding: var(--spacing-md);
+    }
+    
+    .info-box {
+        padding: var(--spacing-md);
+    }
+    
+    .sidebar {
+        width: 100%;
+        left: -100%;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+}
 }
 
 /*
