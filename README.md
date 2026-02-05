@@ -3,7 +3,7 @@
 A beautiful, feature-rich study app to track your learning, manage subjects, and boost productivity. Built with pure HTML, CSS, and JavaScript - **no backend required**! Works completely offline with localStorage.
 
 
-
+![alt text](study-flow.png)
 ## 🚀 Quick Start - Deploy in 2 Minutes!
 
 ### Option 1: GitHub Pages (Recommended - FREE)

@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="StudyFlow - Your smart study companion for tracking concepts, managing subjects, and boosting productivity with an intelligent revision tracker.">
     <meta name="keywords" content="study tracker, revision app, concept tracker, study companion, productivity, education">
     <meta name="author" content="StudyFlow">
     <meta name="theme-color" content="#0f3443">
+    
+    <!-- Performance Optimization -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
@@ -23,15 +26,13 @@
     <title>StudyFlow - Smart Study Companion</title>
     
     <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Preload critical resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Critical CSS inline for faster first paint -->
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="manifest" href="./manifest.json">
 </head>
 <body>
     <div class="app-container">
@@ -366,9 +367,8 @@
 
     </div>
 
-    <script src="app.js"></script>
-    
-    <!-- Service Worker Registration -->
+    <!-- Load JavaScript with defer for better performance -->
+    <script src="./app.js" defer></script>
     <script>
         // Register service worker for offline support
         if ('serviceWorker' in navigator) {

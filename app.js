@@ -3,6 +3,8 @@
  * 
  * This app helps students track their understanding of concepts across subjects.
  * All data is stored locally in the browser using localStorage.
+ * Optimized for mobile performance with efficient DOM manipulation and event delegation.
+ * 
  * Data Structure:
  * {
  *   subjects: [
@@ -21,6 +23,22 @@
  *   ]
  * }
  */
+
+// Performance optimization: Use requestIdleCallback for non-critical tasks
+const scheduleIdleTask = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+
+// Debounce function for performance optimization
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
 
 // ==================== Constants ====================
 

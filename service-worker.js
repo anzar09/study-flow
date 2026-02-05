@@ -1,5 +1,6 @@
 // StudyFlow Service Worker for Offline Support
-const CACHE_NAME = 'studyflow-v2';
+// Optimized for mobile performance with efficient caching strategies
+const CACHE_NAME = 'studyflow-v3';
 const urlsToCache = [
   './',
   './index.html',
@@ -11,7 +12,7 @@ const urlsToCache = [
   './apple-touch-icon.png'
 ];
 
-// Install event - cache resources
+// Install event - cache resources with better error handling
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -19,7 +20,7 @@ self.addEventListener('install', event => {
         return cache.addAll(urlsToCache);
       })
       .catch(err => {
-        // Cache installation failed
+        console.error('Cache installation failed:', err);
       })
   );
   self.skipWaiting();
@@ -41,8 +42,15 @@ self.addEventListener('activate', event => {
   return self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - Network first for HTML, cache first for assets (optimized)
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
+  // Skip cross-origin requests
+  if (url.origin !== location.origin) {
+    return;
+  }
+  
   event.respondWith(
     caches.match(event.request)
       .then(response => {
