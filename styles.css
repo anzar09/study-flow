@@ -3515,10 +3515,6 @@ body {
         font-size: 0.9rem;
     }
 
-    .header-btn span:not(:first-child) {
-        display: none;
-    }
-
     .header-btn {
         padding: 6px 8px;
     }
