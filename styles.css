@@ -3700,3 +3700,101 @@ body::after {
         width: 100%;
     }
 }
+
+/* ==================== Social Footer ==================== */
+.social-footer {
+    background: linear-gradient(135deg, var(--color-sidebar) 0%, var(--color-card) 100%);
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--color-card);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.social-link.github-link {
+    border-color: #6366f1;
+}
+
+.social-link.github-link:hover {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
+.social-link.linkedin-link {
+    border-color: #0077b5;
+}
+
+.social-link.linkedin-link:hover {
+    background: #0077b5;
+    color: white;
+    border-color: #0077b5;
+}
+
+.social-link.github-profile-link {
+    border-color: #8b5cf6;
+}
+
+.social-link.github-profile-link:hover {
+    background: #8b5cf6;
+    color: white;
+    border-color: #8b5cf6;
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.footer-text {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .social-links {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .social-link {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+    
+    .social-footer {
+        padding: 1rem 0.5rem;
+    }
+}
