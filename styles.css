@@ -2707,11 +2707,15 @@ body {
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 8px !important;
         box-shadow: none !important;
-        font-size: 1.1rem;
+        font-size: 0.75rem;
     }
     
-    .header-btn .btn-text {
-        display: none !important;
+    .btn-icon {
+        font-size: 1rem;
+    }
+    
+    .btn-text {
+        font-size: 0.7rem;
     }
     
     .streak-btn {
