@@ -3230,78 +3230,40 @@ body {
 
 @media (max-width: 768px) {
     .app-header {
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 6px var(--spacing-sm);
-        min-height: auto;
-        gap: var(--spacing-xs);
+        padding: 10px 12px;
+        gap: 10px;
     }
     
-    .header-left {
-        flex: 0 0 auto;
-        order: 1;
+    .header-top {
+        padding-left: 55px;
+        min-height: 40px;
     }
     
-    .header-center {
-        flex: 1 1 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: var(--spacing-sm);
-        order: 3;
-        margin-top: 4px;
-    }
-    
-    .header-right {
-        flex: 0 0 auto;
-        order: 2;
-        display: flex;
-        gap: 6px;
-    }
-    
-    .logo-text .app-subtitle {
-        display: none;
+    .header-bottom {
+        gap: 10px;
     }
     
     .logo-text h1 {
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
     
     .logo-icon {
-        font-size: 1.2rem;
-    }
-    
-    .search-wrapper {
-        max-width: 400px;
-    }
-    
-    .header-right {
-        flex: 0 0 auto;
-        order: 3;
-        gap: var(--spacing-xs);
-    }
-    
-    .theme-text {
-        display: none;
+        font-size: 1.8rem;
     }
     
     .header-btn {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-        border-radius: 12px;
-        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        border-radius: 14px;
+    }
+    
+    .btn-icon {
+        font-size: 1.2rem;
     }
     
     .streak-btn {
-        padding: 6px 10px !important;
-        font-size: 0.75rem !important;
-        border-radius: 12px !important;
-        white-space: nowrap;
-    }
-    
-    .theme-toggle {
-        padding: 6px 10px;
-        border-radius: 14px;
+        padding: 8px 12px !important;
+        font-size: 0.9rem !important;
     }
     
     /* SHOW MOBILE MENU BUTTON */
@@ -3314,6 +3276,38 @@ body {
     /* SHOW BACK BUTTON ON MOBILE */
     .back-btn {
         display: inline-flex;
+    }
+    
+    /* SHOW SIDEBAR CLOSE BUTTON ON MOBILE */
+    .sidebar-close-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* SIDEBAR - Hidden by default, shown when active */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 280px;
+        height: 100vh;
+        z-index: 200;
+        border-radius: 0 20px 20px 0;
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+        transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+    
+    .main-content {
+        width: 100%;
     }
     
     /* SHOW SIDEBAR CLOSE BUTTON ON MOBILE */

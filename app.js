@@ -1960,7 +1960,7 @@ function scheduleStudyReminder(time, message) {
             scheduleStudyReminder(time, message);
         }, timeUntil);
         
-        showToast(`⏰ Reminder set for ${time}`, 'success');
+        // Removed the toast notification that was showing on every page load
     }
 }
 
