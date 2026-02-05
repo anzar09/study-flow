@@ -38,13 +38,10 @@
     <div class="app-container">
         <!-- Header -->
         <header class="app-header">
-            <div class="header-left">
-                <!-- Mobile Menu Toggle -->
+            <div class="header-top">
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle subjects menu">
                     <span class="hamburger-icon">☰</span>
                 </button>
-            </div>
-            <div class="header-center">
                 <div class="logo-container">
                     <div class="logo-icon">
                         <span class="logo-book">📖</span>
@@ -55,12 +52,14 @@
                     </div>
                 </div>
             </div>
-            <div class="header-right">
+            <div class="header-bottom">
                 <button class="header-btn" id="timetableBtn" aria-label="View my timetable" data-test="timetable-emoji-btn">
-                    📅<span class="btn-text"> Timetable</span>
+                    <span class="btn-icon">📅</span>
+                    <span class="btn-text">Timetable</span>
                 </button>
                 <button class="header-btn streak-btn" id="streakBtn" aria-label="View study streak" data-test="streak-emoji-btn">
-                    🔥<span class="btn-text"> Streak: <span id="streakCount">0</span> days</span>
+                    <span class="btn-icon">🔥</span>
+                    <span class="btn-text">Streak: <span id="streakCount">0</span> days</span>
                 </button>
             </div>
         </header>
