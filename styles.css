@@ -697,7 +697,6 @@ body {
     transition: all 0.4s ease;
     box-shadow: 0 0 12px rgba(52, 232, 158, 0.6), 
                 inset 0 0 8px rgba(52, 232, 158, 0.3);
-    animation: borderGlow 3s ease-in-out infinite;
 }
 
 .sidebar:hover::before {
@@ -705,11 +704,6 @@ body {
     box-shadow: 0 0 20px rgba(52, 232, 158, 0.8), 
                 inset 0 0 10px rgba(52, 232, 158, 0.5),
                 0 0 30px rgba(0, 150, 232, 0.6);
-}
-
-@keyframes borderGlow {
-    0%, 100% { box-shadow: 0 0 12px rgba(52, 232, 158, 0.6), inset 0 0 8px rgba(52, 232, 158, 0.3); }
-    50% { box-shadow: 0 0 18px rgba(52, 232, 158, 0.8), inset 0 0 10px rgba(52, 232, 158, 0.4); }
 }
 
 [data-theme="dark"] .sidebar {
@@ -1280,12 +1274,6 @@ body {
         rgba(255, 255, 255, 0.3),
         transparent
     );
-    animation: progressShine 2s infinite;
-}
-
-@keyframes progressShine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
 }
 
 .progress-summary {
@@ -1480,7 +1468,6 @@ body {
         radial-gradient(4px 4px at 25% 35%, rgba(129, 140, 248, 0.3), transparent),
         radial-gradient(3px 3px at 85% 55%, rgba(52, 232, 158, 0.35), transparent),
         radial-gradient(5px 5px at 5% 85%, rgba(84, 160, 255, 0.25), transparent);
-    animation: floatingParticles 20s ease-in-out infinite;
     opacity: 0.6;
 }
 
@@ -1519,25 +1506,6 @@ body {
         radial-gradient(4px 4px at 85% 55%, rgba(52, 232, 158, 0.35), transparent),
         radial-gradient(6px 6px at 5% 85%, rgba(84, 160, 255, 0.3), transparent);
     opacity: 0.7;
-}
-
-@keyframes floatingParticles {
-    0%, 100% { 
-        transform: translateY(0) translateX(0) scale(1);
-        opacity: 0.6;
-    }
-    25% { 
-        transform: translateY(-10px) translateX(5px) scale(1.05);
-        opacity: 0.8;
-    }
-    50% { 
-        transform: translateY(-5px) translateX(-5px) scale(1);
-        opacity: 0.5;
-    }
-    75% { 
-        transform: translateY(-15px) translateX(3px) scale(1.02);
-        opacity: 0.7;
-    }
 }
 
 .concepts-section > * {
@@ -1958,11 +1926,7 @@ body {
 }
 
 .complete-btn:hover::before {
-    animation: spinGlow 2s linear infinite;
-}
-
-@keyframes spinGlow {
-    to { transform: rotate(360deg); }
+    animation: none;
 }
 
 .complete-btn:hover {
