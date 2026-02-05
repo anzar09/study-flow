@@ -394,28 +394,46 @@
     <!-- Load JavaScript with defer for better performance -->
     <script src="./app.js" defer></script>
     <script>
+        // PWA Install Prompt
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            // Show the install prompt after a short delay
+            setTimeout(() => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        deferredPrompt = null;
+                    });
+                }
+            }, 2000);
+        });
+        
         // Register service worker for offline support
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', async () => {
                 try {
-                    // Unregister any existing service workers first
-                    const registrations = await navigator.serviceWorker.getRegistrations();
-                    for (const registration of registrations) {
-                        await registration.unregister();
-                    }
-                    
-                    // Register new service worker
+                    // Register service worker
                     const registration = await navigator.serviceWorker.register('./service-worker.js');
+                    
+                    // Check for updates
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'activated') {
+                                // Reload page when new service worker is activated
+                                window.location.reload();
+                            }
+                        });
+                    });
                 } catch (error) {
                     // Service worker registration failed
+                    console.log('Service worker registration failed:', error);
                 }
-            });
-        }
-        
-        // Check for updates
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-                window.location.reload();
             });
         }
     </script>
